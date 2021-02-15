@@ -25,7 +25,7 @@ const createMovie = (req, res, next) => {
     trailer, nameRU, nameEN, thumbnail, movieID,
   } = req.body;
 
-  Movie.findOne({ movieID })
+  Movie.findOne({ movieID, owner: ownerId })
     .then((movie) => {
       if (movie) {
         throw new ConflictError(messageConflictMovieID);
