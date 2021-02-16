@@ -20,34 +20,19 @@ const getMovies = (req, res, next) => {
 // создаём фильм с переданными в теле данными
 const createMovie = (req, res, next) => {
   const ownerId = req.user._id;
-  const {
-    country, director, duration, year, description, image,
-    trailer, nameRU, nameEN, thumbnail, movieID,
-  } = req.body;
+  const { movieId } = req.body;
 
-  Movie.findOne({ movieID, owner: ownerId })
-    .then((movie) => {
-      if (movie) {
+  Movie.findOne({ movieId, owner: ownerId })
+    .then((data) => {
+      if (data === null) {
+        Movie.create({ ...req.body, owner: ownerId })
+          .then((movie) => res.status(200).send(movie))
+          .catch(next);
+      }
+      if (data) {
         throw new ConflictError(messageConflictMovieID);
       }
     })
-    .catch(next);
-
-  Movie.create({
-    country,
-    director,
-    duration,
-    year,
-    description,
-    image,
-    trailer,
-    nameRU,
-    nameEN,
-    thumbnail,
-    movieID,
-    owner: ownerId,
-  })
-    .then((movie) => res.status(200).send(movie))
     .catch(next);
 };
 

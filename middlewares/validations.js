@@ -116,9 +116,9 @@ const validateMovie = celebrate({
         'string.empty': messageRequiredField,
       }),
     owner: Joi.string().alphanum().length(24),
-    movieID: Joi.string().required()
+    movieId: Joi.number().integer().required()
       .messages({
-        'string.empty': messageRequiredField,
+        'number.empty': messageRequiredField,
       }),
     nameRU: Joi.string().required()
       .messages({
