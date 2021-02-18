@@ -2,7 +2,7 @@
 
 К серверу можно обратиться по адресу домена
 
-https://api.ev-movie.students.nomoredomains.rocks
+https://api.e-movie.students.nomoredomains.rocks/
 
 
-Публичный IP: 84.252.130.17
+Публичный IP: 178.154.231.85
