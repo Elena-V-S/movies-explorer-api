@@ -2,6 +2,7 @@ const bcrypt = require('bcryptjs'); // импортируем bcrypt
 const jwt = require('jsonwebtoken'); // импортируем модуль jsonwebtoken
 const User = require('../models/user');
 const NotFoundError = require('../errors/not-found-err');
+const UnauthorizedError = require('../errors/un-authorized-err');
 const ConflictError = require('../errors/conflict-err');
 const {
   messageNotFoundID,
@@ -71,13 +72,13 @@ const login = (req, res, next) => {
   User.findOne({ email }).select('+password') // в случае аутентификации хеш пароля пользователя будет возвращаться
     .then((user) => {
       if (!user) {
-        throw new NotFoundError(messageNotFoundUser);
+        throw new UnauthorizedError(messageNotFoundUser); // не пройдена аутентификация - ошибка 401
       }
 
       return bcrypt.compare(password, user.password)
         .then((matched) => {
-          if (!matched) { // хеши не совпали — отклоняем промис
-            throw new NotFoundError(messageNotFoundUser);
+          if (!matched) { // хеши не совпали — отклоняем промис - не пройдена аутентификация
+            throw new UnauthorizedError(messageNotFoundUser); //  - ошибка 401
           }
           return user; // аутентификация успешна
         })

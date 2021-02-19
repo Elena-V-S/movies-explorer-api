@@ -28,7 +28,7 @@ const validateURL = (value, helpers) => {
 
 const validateId = celebrate({
   params: Joi.object().keys({
-    movieId: Joi.string().alphanum().length(24),
+    movieId: Joi.string().hex(),
   }),
 });
 
@@ -115,7 +115,7 @@ const validateMovie = celebrate({
       .messages({
         'string.empty': messageRequiredField,
       }),
-    owner: Joi.string().alphanum().length(24),
+    owner: Joi.string().hex(),
     movieId: Joi.number().integer().required()
       .messages({
         'number.empty': messageRequiredField,
