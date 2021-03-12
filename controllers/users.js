@@ -59,9 +59,15 @@ const createUser = (req, res, next) => {
       email,
       password: hash, // записываем хеш в базу
     }))
-    .then(() => {
-      res.status(200).send({ name, email });
+    .then((user) => {
+      // создадим токен JWT сроком на неделю
+      const token = jwt.sign({ _id: user._id }, JWT_SECRET, { expiresIn: '7d' });
+      // вернём токен
+      res.send({ name, email, token });
     })
+    // .then(() => {
+    //   res.status(200).send({ name, email });
+    // })
     .catch(next);
 };
 
