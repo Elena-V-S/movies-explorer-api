@@ -1,6 +1,6 @@
 // невалидные ссылки и email- адреса
 const messageFailEmail = 'Поле "email" должно быть валидным email-адресом';
-const messageFailURL = 'Поле "avatar" должно быть валидным url-адресом';
+const messageFailURL = 'Поле должно быть валидным url-адресом';
 // незаполненные поля
 const messageRequiredName = 'Поле "name" должно быть заполнено';
 const messageRequiredEmail = 'Поле "email" должно быть заполнено';
