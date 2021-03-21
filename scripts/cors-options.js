@@ -1,6 +1,6 @@
 const options = {
   origin: [
-    'https://ev-mesto.students.nomoredomains.rocks',
+    'https://e-movie.students.nomoredomains.rocks',
     'http://localhost:3000',
     'http://localhost:8080',
   ],
