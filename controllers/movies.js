@@ -5,7 +5,7 @@ const ConflictError = require('../errors/conflict-err');
 const {
   messageNotFoundMovie,
   messageForbiddenError,
-  messageSuccessDelete,
+  // messageSuccessDelete,
   messageConflictMovieID,
 } = require('../scripts/errors-massages');
 
@@ -27,6 +27,7 @@ const createMovie = (req, res, next) => {
       if (data === null) {
         Movie.create({ ...req.body, owner: ownerId })
           .then((movie) => res.status(200).send(movie))
+          .then((movie) => res.status(200).send(movie))
           .catch(next);
       }
       if (data) {
@@ -46,7 +47,8 @@ const deleteMovie = (req, res, next) => {
     .then((movie) => {
       if (movie.owner.toString() === ownerId) {
         Movie.findByIdAndRemove(movieId)
-          .then(() => res.status(200).send(messageSuccessDelete))
+          .then(() => res.status(200).send(movie))
+          // .then(() => res.status(200).send(messageSuccessDelete))
           .catch(next);
       } else {
         throw new ForbiddenError(messageForbiddenError);
